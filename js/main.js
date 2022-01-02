@@ -6,14 +6,13 @@ import Storage from './Storage.js';
 import UI from './UI.js';
 
 const addInfoInput = document.querySelector('input');
+const todContainer = document.querySelector('.todo-container');
 
 function infoFunc(e) {
   if (e.key === 'Enter') {
     if (addInfoInput.value.trim()) {
       Data.processData(addInfoInput.value);
-
       Storage.saveData(Data.datas);
-
       UI.display(Storage.getData());
       Helper.clearInput();
     } else Helper.showMsg('Please type some todo...', 'text-danger');
@@ -22,7 +21,16 @@ function infoFunc(e) {
   }
 }
 
+function editDel(e) {
+  const target = e.target;
+  const id = +target.closest('.todo').getAttribute('data-id');
+
+  if (target.classList.contains('edit')) Data.editData(id);
+  if (target.classList.contains('delete')) Data.deleteData(id);
+}
+
 if (Storage.getData()) UI.display(Storage.getData());
 
 ///////////////
 addInfoInput.addEventListener('keypress', infoFunc);
+todContainer.addEventListener('click', editDel);
