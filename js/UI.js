@@ -1,5 +1,7 @@
 class UI {
   todContainer = document.querySelector('.todo-container');
+  input = document.querySelector('input');
+
   constructor() {}
 
   display(datas) {
@@ -18,6 +20,16 @@ class UI {
 				</div>
 			`;
     });
+  }
+
+  displayEditInput(id, data) {
+    this.input.setAttribute('data-id', id);
+    this.input.value = data;
+    this.input.focus();
+  }
+
+  removeAttr(attr) {
+    this.input.removeAttribute(attr);
   }
 }
 
